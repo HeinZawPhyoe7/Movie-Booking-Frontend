@@ -1,10 +1,10 @@
-import AdminPage from "@/components/elements/AdminPage";
+import CreateMovie from "@/components/elements/movies/CreateMovie";
 
 export default function Page() {
   return (
     <div>
       <div>
-        <AdminPage />
+        <CreateMovie />
       </div>
     </div>
   );

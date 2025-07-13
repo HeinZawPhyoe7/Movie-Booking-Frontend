@@ -22,11 +22,11 @@ const data = {
       items: [
         {
           title: "Create Movie",
-          url: "#",
+          url: "/admin",
         },
         {
-          title: "Edit Movie",
-          url: "#",
+          title: "Get Movie",
+          url: "/admin/get",
         },
       ],
     },

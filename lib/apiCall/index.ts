@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CreateMovieT } from "../types/moviesType";
+import { CreateMovieT, MovieT, UpdateMovieArgs } from "../types/moviesType";
 import axiosInstance from "./axiosInstance";
 
 export const createMovie = createAsyncThunk(
   "movies/createMovie",
   async (movie: CreateMovieT, thunkAPI) => {
     try {
-      const response = await axiosInstance.post("auth/create/movies", movie);
+      const response = await axiosInstance.post("/auth/create/movies", movie);
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(
@@ -15,3 +15,30 @@ export const createMovie = createAsyncThunk(
     }
   }
 );
+
+export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
+  const response = await axiosInstance.get("/auth/getAll/movies");
+  return response.data.movies as MovieT[];
+});
+
+export const updateMovie = createAsyncThunk(
+  "movies/updateMovie",
+  async ({ id, data }: UpdateMovieArgs, thankAPI) => {
+    try {
+      const response = await axiosInstance.post("/auth/update/movies", {
+        id,
+        ...data,
+      });
+      return response.data as MovieT;
+    } catch (error: any) {
+      return thankAPI.rejectWithValue(error.response?.data ?? error.message);
+    }
+  }
+);
+
+export const deleteMovieId = async (movieId: number) => {
+  const response = await axiosInstance.post("/auth/delete/movies", {
+    movieId,
+  });
+  return response.data;
+};

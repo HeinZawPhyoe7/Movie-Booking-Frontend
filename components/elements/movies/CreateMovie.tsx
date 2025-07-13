@@ -26,10 +26,9 @@ import { CreateMovieT } from "@/lib/types/moviesType";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { ChangeEvent } from "react";
 
-const AdminPage = () => {
+const CreateMovie = () => {
   const dispatch = useAppDispatch();
   const formData = useAppSelector(CreateMovieForm);
-  const createApiStatus = useAppSelector(CreateMovieStatus);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,7 +47,6 @@ const AdminPage = () => {
       })
     );
     dispatch(resetMovieForm());
-    console.log("createApiStatus", createApiStatus);
   };
   return (
     <div>
@@ -134,4 +132,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default CreateMovie;

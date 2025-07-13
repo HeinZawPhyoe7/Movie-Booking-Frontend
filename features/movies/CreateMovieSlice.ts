@@ -24,6 +24,7 @@ const createMovieSlice = createSlice({
       const { field, value } = action.payload;
       state.data[field] = value;
     },
+
     resetMovieForm: () => initialState,
   },
   extraReducers: (builder) => {

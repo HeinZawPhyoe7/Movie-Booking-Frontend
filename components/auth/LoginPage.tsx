@@ -60,7 +60,6 @@ const Login = () => {
     <div className="flex justify-center items-center flex-col">
       <div className="flex justify-center flex-col items-center gap-y-4">
         <h3 className="text-3xl font-bold font-serif">Nice To Meet You</h3>
-        <h3 className="text-3xl font-bold font-serif ">Welcome Back</h3>
         <div className="text-3xl font-bold font-serif ">
           Login To Your Account
         </div>
@@ -82,7 +81,7 @@ const Login = () => {
 
           <button
             onClick={handleLogin}
-            className="mt-4 bg-blue-400 rounded-lg p-2 text-white w-full cursor-pointer"
+            className="mt-4 bg-blue-400 rounded-2xl p-2 text-white w-full cursor-pointer"
           >
             Login
           </button>
@@ -93,7 +92,7 @@ const Login = () => {
         </div>
         <div className="flex justify-center items-center gap-3">
           <div className="text-xl font-bold font-serif">
-            Don't Have Account?
+            Don&apos;t Have Account?
           </div>
           <Link
             href="/register"
