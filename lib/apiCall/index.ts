@@ -42,3 +42,10 @@ export const deleteMovieId = async (movieId: number) => {
   });
   return response.data;
 };
+
+export const searchMovies = async (searchMovies: string) => {
+  const response = await axiosInstance.post("/auth/search/movies", {
+    name: searchMovies,
+  });
+  return response.data.movies as MovieT[];
+};

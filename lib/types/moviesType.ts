@@ -8,7 +8,7 @@ export type MovieT = {
 
 export interface MovieState {
   allMovies: MovieT[];
-  selectedMovieDetails: MovieT;
+  selectedMovieDetail: MovieT;
   status: "succeeded";
 }
 

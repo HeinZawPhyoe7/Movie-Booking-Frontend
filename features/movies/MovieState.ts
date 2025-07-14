@@ -10,5 +10,6 @@ const initialMovieDetails = {
 
 export const initialMovieState: MovieState = {
   allMovies: [],
-  selectedMovieDetails: initialMovieDetails,
+  selectedMovieDetail: initialMovieDetails,
+  status: "succeeded",
 };

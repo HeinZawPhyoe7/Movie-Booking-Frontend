@@ -12,7 +12,7 @@ const moviesSlice = createSlice({
       state.allMovies = action.payload;
     },
     setMovieDetails(state, action: PayloadAction<MovieT>) {
-      state.selectedMovieDetails = action.payload;
+      state.selectedMovieDetail = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -23,7 +23,7 @@ const moviesSlice = createSlice({
       const idx = state.allMovies.findIndex((movie) => movie.id === payload.id);
       if (idx !== -1) state.allMovies[idx] = payload;
 
-      state.selectedMovieDetails = payload;
+      state.selectedMovieDetail = payload;
       state.status = "succeeded";
     });
   },
@@ -32,4 +32,4 @@ const moviesSlice = createSlice({
 export default moviesSlice.reducer;
 export const { setMoives, setMovieDetails } = moviesSlice.actions;
 export const selectedMovieDetail = (state: RootState) =>
-  state.movies.selectedMovieDetails;
+  state.movies.selectedMovieDetail;
