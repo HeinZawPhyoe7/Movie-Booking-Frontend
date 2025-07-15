@@ -10,37 +10,51 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
-  CreateMovieForm,
-  resetMovieForm,
-  setMovieField,
-} from "@/features/movies/CreateMovieSlice";
-import { createMovie } from "@/lib/apiCall";
-import { CreateMovieT } from "@/lib/types/moviesType";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useFetchMovies } from "@/hooks/useFetchMovies";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
-import { ChangeEvent } from "react";
+import { CreateMovieDetailT } from "@/lib/types/movieDetails";
+import { ChangeEvent, useState } from "react";
+import {
+  CreateMovieDetailForm,
+  setMovieDetailField,
+} from "@/features/movie-details/CreateMovieDetailSlice";
+import { createMovieDetail } from "@/lib/apiCall";
 
-const CreateMovie = () => {
+const CreateMovieDetails = () => {
+  const { movies: allMovies, loading: fetchMovieLoading } = useFetchMovies();
   const dispatch = useAppDispatch();
-  const formData = useAppSelector(CreateMovieForm);
+  const formData = useAppSelector(CreateMovieDetailForm);
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    dispatch(setMovieField({ field: name as keyof CreateMovieT, value }));
+    dispatch(
+      setMovieDetailField({ field: name as keyof CreateMovieDetailT, value })
+    );
   };
 
   const handleCreate = () => {
+    if (selectedMovieId === null) {
+      return console.log("aa", "There is No Movie ID");
+    }
     dispatch(
-      createMovie({
-        title: formData.title,
-        description: formData.description,
-        images: formData.images,
-        genre: formData.genre,
+      createMovieDetail({
+        cinema_name: formData.cinema_name,
+        cinema_place: formData.cinema_place,
+        period_time: formData.period_time,
+        show_time: formData.show_time,
+        movie_id: selectedMovieId,
       })
     );
-    dispatch(resetMovieForm());
   };
+
   return (
     <div>
       <div>
@@ -64,10 +78,45 @@ const CreateMovie = () => {
         <div className="flex flex-col p-4 space-y-2">
           <div className="flex flex-col justify-start item-start">
             <label className="font-serif font-bold text-sm" htmlFor="">
-              Movie Title
+              Select Movie
+            </label>
+            {fetchMovieLoading ? (
+              <div>Movie is loading...</div>
+            ) : (
+              <Select onValueChange={(val) => setSelectedMovieId(Number(val))}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Movies" />
+                </SelectTrigger>
+                <SelectContent>
+                  {allMovies.map((movie) => {
+                    return (
+                      <SelectItem key={movie.id} value={String(movie.id)}>
+                        {movie.title}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
+          <div className="flex flex-col justify-start item-start">
+            <label className="font-serif font-bold text-sm" htmlFor="">
+              Cinema Place
             </label>
             <input
-              name="title"
+              name="cinema_place"
+              className="p-1 border border-gray-400 w-[300px]"
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="flex flex-col justify-start item-start">
+            <label className="font-serif font-bold text-sm" htmlFor="">
+              Cinema Name
+            </label>
+            <input
+              name="cinema_name"
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -75,32 +124,21 @@ const CreateMovie = () => {
           </div>
           <div className="flex flex-col justify-start item-start">
             <label className="font-serif font-bold text-sm" htmlFor="">
-              Movie Description
-            </label>
-            <textarea
-              className="p-1 border border-gray-400 w-[300px]"
-              name="description"
-              id="description"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex flex-col justify-start item-start">
-            <label className="font-serif font-bold text-sm" htmlFor="">
-              Movie Image
-            </label>
-            <textarea
-              className="p-1 border border-gray-400 w-[300px]"
-              name="images"
-              id=""
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex flex-col justify-start item-start">
-            <label className="font-serif font-bold text-sm" htmlFor="">
-              Movie Genre
+              Period Time
             </label>
             <input
-              name="genre"
+              name="period_time"
+              className="p-1 border border-gray-400 w-[300px]"
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex flex-col justify-start item-start">
+            <label className="font-serif font-bold text-sm" htmlFor="">
+              Show Time
+            </label>
+            <input
+              name="show_time"
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -120,4 +158,4 @@ const CreateMovie = () => {
   );
 };
 
-export default CreateMovie;
+export default CreateMovieDetails;

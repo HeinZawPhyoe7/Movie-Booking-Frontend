@@ -44,7 +44,7 @@ const Login = () => {
         localStorage.setItem("userType", user.userType);
 
         if (user.userType === "admin") {
-          router.push("/admin");
+          router.push("/dashboard/movie/create");
         } else if (user.userType === "user") {
           router.push("/");
         } else {

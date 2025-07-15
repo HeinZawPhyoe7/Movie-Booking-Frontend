@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CreateMovieT, MovieT, UpdateMovieArgs } from "../types/moviesType";
 import axiosInstance from "./axiosInstance";
+import { CreateMovieDetailT, MovieDetailT } from "../types/movieDetails";
 
 export const createMovie = createAsyncThunk(
   "movies/createMovie",
@@ -16,10 +17,27 @@ export const createMovie = createAsyncThunk(
   }
 );
 
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
+export const createMovieDetail = createAsyncThunk(
+  "movies/createMovie",
+  async (movieDetail: CreateMovieDetailT, thunkAPI) => {
+    try {
+      const response = await axiosInstance.post(
+        "/auth/create/movie/details",
+        movieDetail
+      );
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Create failed"
+      );
+    }
+  }
+);
+
+export const fetchMovies = async () => {
   const response = await axiosInstance.get("/auth/getAll/movies");
   return response.data.movies as MovieT[];
-});
+};
 
 export const updateMovie = createAsyncThunk(
   "movies/updateMovie",
@@ -48,4 +66,10 @@ export const searchMovies = async (searchMovies: string) => {
     name: searchMovies,
   });
   return response.data.movies as MovieT[];
+};
+
+export const logout = async () => {
+  const response = await axiosInstance.post("/auth/logout", {});
+
+  return response.data;
 };

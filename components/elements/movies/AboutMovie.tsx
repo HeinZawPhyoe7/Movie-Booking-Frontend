@@ -4,7 +4,7 @@ import { selectedMovieDetail } from "@/features/movies/MoviesSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import React from "react";
 
-const DetailMovie = () => {
+const AboutMovie = () => {
   const dispatch = useAppDispatch();
   const currentSelectedMovie = useAppSelector(selectedMovieDetail);
 
@@ -39,4 +39,4 @@ const DetailMovie = () => {
   );
 };
 
-export default DetailMovie;
+export default AboutMovie;

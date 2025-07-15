@@ -1,4 +1,4 @@
-import HomePage from "@/components/elements/HomePage";
+import AboutMovie from "@/components/elements/movies/AboutMovie";
 import NavBar from "@/components/elements/NavBar";
 import React from "react";
 
@@ -7,7 +7,7 @@ const Page = () => {
     <div>
       <div>
         <NavBar />
-        <HomePage />
+        <AboutMovie />
       </div>
     </div>
   );

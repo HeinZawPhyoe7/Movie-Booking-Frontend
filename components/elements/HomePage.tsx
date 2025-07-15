@@ -1,7 +1,7 @@
 "use client";
 
 import { setMovieDetails } from "@/features/movies/MoviesSlice";
-import { fetchMovies } from "@/lib/apiCall";
+import { useFetchMovies } from "@/hooks/useFetchMovies";
 import { MovieT } from "@/lib/types/moviesType";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { useRouter } from "next/navigation";
@@ -10,15 +10,11 @@ import React, { useEffect } from "react";
 const HomePage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { allMovies } = useAppSelector((state) => state.movies);
-
-  useEffect(() => {
-    dispatch(fetchMovies());
-  }, [dispatch]);
+  const { movies: allMovies } = useFetchMovies();
 
   const handleMovieClick = (movie: MovieT) => {
     dispatch(setMovieDetails(movie));
-    router.push("/movie-detail");
+    router.push("/about-movies");
   };
   return (
     <div>

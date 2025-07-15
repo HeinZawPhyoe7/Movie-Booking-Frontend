@@ -12,6 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useRouter } from "next/navigation";
 
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
@@ -22,11 +23,25 @@ const data = {
       items: [
         {
           title: "Create Movie",
-          url: "/admin",
+          url: "/dashboard/movie/create",
         },
         {
           title: "Get Movie",
-          url: "/admin/get",
+          url: "/dashboard/movie/get",
+        },
+      ],
+    },
+    {
+      title: "Movie Details",
+      url: "#",
+      items: [
+        {
+          title: "Create Movie Details",
+          url: "/dashboard/movie-details/create",
+        },
+        {
+          title: "Get Movie Details",
+          url: "/dashboard/movie-details/get",
         },
       ],
     },
@@ -34,6 +49,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter();
+  const handleRouteChange = (url: string) => {
+    router.push(url);
+  };
   return (
     <Sidebar {...props}>
       Admin Page
@@ -46,8 +65,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>{item.title}</a>
+                    <SidebarMenuButton
+                      asChild
+                      onClick={() => handleRouteChange(item.url)}
+                    >
+                      <p className="text-xs pl-4 text-gray-600 cursor-pointer hover:underline">
+                        {item.title}
+                      </p>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}

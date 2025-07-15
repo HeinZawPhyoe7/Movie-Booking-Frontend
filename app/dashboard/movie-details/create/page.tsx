@@ -1,11 +1,11 @@
-import DetailMovie from "@/components/elements/movies/DetailMovie";
+import CreateMovieDetails from "@/components/elements/movie-details/CreateMovieDetails";
 import React from "react";
 
 const Page = () => {
   return (
     <div>
       <div>
-        <DetailMovie />
+        <CreateMovieDetails />
       </div>
     </div>
   );

@@ -1,15 +1,19 @@
 "use client";
 
-import { setMoives } from "@/features/movies/MoviesSlice";
-import { searchMovies } from "@/lib/apiCall";
+import { setMovies } from "@/features/movies/MoviesSlice";
+import { logout, searchMovies } from "@/lib/apiCall";
 import { useAppDispatch } from "@/store/hook";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const NavBar = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken") || "");
+  }, []);
   const [searchName, setSearchName] = useState("");
 
   const handleHome = () => {
@@ -17,13 +21,29 @@ const NavBar = () => {
   };
 
   const handleTicket = () => {};
+
+  const handleRegister = () => {
+    router.push("/register");
+  };
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userType");
+    router.push("/login");
+  };
+
   const handleSearchChange = (e: any) => {
     setSearchName(e.target.value);
   };
 
   const handleSearch = async () => {
     const response = await searchMovies(searchName);
-    dispatch(setMoives(response));
+    dispatch(setMovies(response));
   };
 
   return (
@@ -61,7 +81,31 @@ const NavBar = () => {
             </button>
           </div>
         </div>
-        <div>sfdgsf</div>
+        <div>
+          {accessToken ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+            >
+              Logout
+            </button>
+          ) : (
+            <div>
+              <button
+                onClick={handleRegister}
+                className="bg-sky-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+              >
+                Register
+              </button>
+              <button
+                onClick={handleLogin}
+                className="bg-sky-400 p-2 text-white border cursor-pointer rounded-md shadow-md"
+              >
+                Login
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
