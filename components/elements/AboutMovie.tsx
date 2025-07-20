@@ -2,19 +2,27 @@
 
 import { selectedMovieDetail } from "@/features/movies/MoviesSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const AboutMovie = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const currentSelectedMovie = useAppSelector(selectedMovieDetail);
 
-  const handleBookNow = () => {};
+  const handleBookNow = () => {
+    const movieId = currentSelectedMovie.id;
+    router.push(`/movie-detail?movie_id=${movieId}`);
+  };
   return (
     <div>
       <div className="flex flex-col justify-center items-center space-y-2">
-        <img
+        <Image
           src={`data:image/jpeg;base64,${currentSelectedMovie.images}`}
           alt={currentSelectedMovie.title}
+          width={120}
+          height={120}
           className="w-80 h-96 rounded cursor-pointer hover:opacity-80 transition"
         />
         <div className="text-3xl font-bold font-serif">

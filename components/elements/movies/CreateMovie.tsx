@@ -68,6 +68,7 @@ const CreateMovie = () => {
             </label>
             <input
               name="title"
+              value={(formData as any)["title"]}
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -80,6 +81,7 @@ const CreateMovie = () => {
             <textarea
               className="p-1 border border-gray-400 w-[300px]"
               name="description"
+              value={(formData as any)["description"]}
               id="description"
               onChange={handleChange}
             />
@@ -91,6 +93,7 @@ const CreateMovie = () => {
             <textarea
               className="p-1 border border-gray-400 w-[300px]"
               name="images"
+              value={(formData as any)["images"]}
               id=""
               onChange={handleChange}
             />
@@ -102,6 +105,7 @@ const CreateMovie = () => {
             <input
               name="genre"
               className="p-1 border border-gray-400 w-[300px]"
+              value={(formData as any)["genre"]}
               type="text"
               onChange={handleChange}
             />

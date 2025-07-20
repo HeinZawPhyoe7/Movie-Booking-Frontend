@@ -1,9 +1,10 @@
 "use client";
 
-import { setMovieDetails } from "@/features/movies/MoviesSlice";
+import { setSelectedMovieDetail } from "@/features/movies/MoviesSlice";
 import { useFetchMovies } from "@/hooks/useFetchMovies";
 import { MovieT } from "@/lib/types/moviesType";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -13,7 +14,7 @@ const HomePage = () => {
   const { movies: allMovies } = useFetchMovies();
 
   const handleMovieClick = (movie: MovieT) => {
-    dispatch(setMovieDetails(movie));
+    dispatch(setSelectedMovieDetail(movie));
     router.push("/about-movies");
   };
   return (
@@ -27,9 +28,11 @@ const HomePage = () => {
               className="flex justify-start items-start bg-gray-50 shadow-md gap-4 w-[350px] cursor-pointer"
               onClick={() => handleMovieClick(movie)}
             >
-              <img
+              <Image
                 src={`data:image/jpeg;base64,${movie.images}`}
                 alt={movie.title}
+                width={120}
+                height={120}
                 className="w-20 h-30 rounded cursor-pointer hover:opacity-80 transition"
               />
               <div className="p-2">

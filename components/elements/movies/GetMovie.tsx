@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { setMovieDetails } from "@/features/movies/MoviesSlice";
+import { setSelectedMovieDetail } from "@/features/movies/MoviesSlice";
 import { useFetchMovies } from "@/hooks/useFetchMovies";
 import { deleteMovieId, fetchMovies } from "@/lib/apiCall";
 import { MovieT } from "@/lib/types/moviesType";
@@ -39,7 +39,7 @@ const GetMovie = () => {
   const { loading } = useFetchMovies();
 
   const handleEdit = (movie: MovieT) => {
-    dispatch(setMovieDetails(movie));
+    dispatch(setSelectedMovieDetail(movie));
     router.push("/dashboard/movie/edit");
   };
 

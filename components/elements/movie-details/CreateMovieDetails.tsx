@@ -22,6 +22,7 @@ import { CreateMovieDetailT } from "@/lib/types/movieDetails";
 import { ChangeEvent, useState } from "react";
 import {
   CreateMovieDetailForm,
+  resetMovieDetailForm,
   setMovieDetailField,
 } from "@/features/movie-details/CreateMovieDetailSlice";
 import { createMovieDetail } from "@/lib/apiCall";
@@ -53,6 +54,7 @@ const CreateMovieDetails = () => {
         movie_id: selectedMovieId,
       })
     );
+    dispatch(resetMovieDetailForm());
   };
 
   return (
@@ -105,6 +107,7 @@ const CreateMovieDetails = () => {
             </label>
             <input
               name="cinema_place"
+              value={(formData as any)["cinema_place"]}
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -117,6 +120,7 @@ const CreateMovieDetails = () => {
             </label>
             <input
               name="cinema_name"
+              value={(formData as any)["cinema_name"]}
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -128,6 +132,7 @@ const CreateMovieDetails = () => {
             </label>
             <input
               name="period_time"
+              value={(formData as any)["period_time"]}
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}
@@ -139,6 +144,7 @@ const CreateMovieDetails = () => {
             </label>
             <input
               name="show_time"
+              value={(formData as any)["show_time"]}
               className="p-1 border border-gray-400 w-[300px]"
               type="text"
               onChange={handleChange}

@@ -39,6 +39,15 @@ export const fetchMovies = async () => {
   return response.data.movies as MovieT[];
 };
 
+export const fetchMovieDetailsByMovieId = async (
+  movieId: number
+): Promise<MovieDetailT[]> => {
+  const response = await axiosInstance.get(
+    `/auth/show/movie/details/${movieId}`
+  );
+  return response.data.movieDetails as MovieDetailT[];
+};
+
 export const updateMovie = createAsyncThunk(
   "movies/updateMovie",
   async ({ id, data }: UpdateMovieArgs, thankAPI) => {

@@ -11,7 +11,7 @@ const moviesSlice = createSlice({
     setMovies(state, action: PayloadAction<MovieT[]>) {
       state.allMovies = action.payload;
     },
-    setMovieDetails(state, action: PayloadAction<MovieT>) {
+    setSelectedMovieDetail(state, action: PayloadAction<MovieT>) {
       state.selectedMovieDetail = action.payload;
     },
   },
@@ -27,6 +27,6 @@ const moviesSlice = createSlice({
 });
 
 export default moviesSlice.reducer;
-export const { setMovies, setMovieDetails } = moviesSlice.actions;
+export const { setMovies, setSelectedMovieDetail } = moviesSlice.actions;
 export const selectedMovieDetail = (state: RootState) =>
   state.movies.selectedMovieDetail;

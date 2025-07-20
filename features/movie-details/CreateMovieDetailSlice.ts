@@ -42,7 +42,8 @@ const createMovieDetailSlice = createSlice({
   },
 });
 
-export const { setMovieDetailField } = createMovieDetailSlice.actions;
+export const { setMovieDetailField, resetMovieDetailForm } =
+  createMovieDetailSlice.actions;
 export default createMovieDetailSlice.reducer;
 
 export const CreateMovieDetailForm = (state: RootState) =>
