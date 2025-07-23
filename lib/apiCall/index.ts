@@ -2,6 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CreateMovieT, MovieT, UpdateMovieArgs } from "../types/moviesType";
 import axiosInstance from "./axiosInstance";
 import { CreateMovieDetailT, MovieDetailT } from "../types/movieDetails";
+import { SeatT } from "../types/seatType";
+
+//Movies
+export const fetchMovies = async () => {
+  const response = await axiosInstance.get("/auth/getAll/movies");
+  return response.data.movies as MovieT[];
+};
 
 export const createMovie = createAsyncThunk(
   "movies/createMovie",
@@ -17,6 +24,21 @@ export const createMovie = createAsyncThunk(
   }
 );
 
+export const searchMovies = async (searchMovies: string) => {
+  const response = await axiosInstance.post("/auth/search/movies", {
+    name: searchMovies,
+  });
+  return response.data.movies as MovieT[];
+};
+
+export const deleteMovieId = async (movieId: number) => {
+  const response = await axiosInstance.post("/auth/delete/movies", {
+    movieId,
+  });
+  return response.data;
+};
+
+//Movie Details
 export const createMovieDetail = createAsyncThunk(
   "movies/createMovie",
   async (movieDetail: CreateMovieDetailT, thunkAPI) => {
@@ -33,11 +55,6 @@ export const createMovieDetail = createAsyncThunk(
     }
   }
 );
-
-export const fetchMovies = async () => {
-  const response = await axiosInstance.get("/auth/getAll/movies");
-  return response.data.movies as MovieT[];
-};
 
 export const fetchMovieDetailsByMovieId = async (
   movieId: number
@@ -63,22 +80,15 @@ export const updateMovie = createAsyncThunk(
   }
 );
 
-export const deleteMovieId = async (movieId: number) => {
-  const response = await axiosInstance.post("/auth/delete/movies", {
-    movieId,
-  });
-  return response.data;
-};
-
-export const searchMovies = async (searchMovies: string) => {
-  const response = await axiosInstance.post("/auth/search/movies", {
-    name: searchMovies,
-  });
-  return response.data.movies as MovieT[];
-};
-
 export const logout = async () => {
   const response = await axiosInstance.post("/auth/logout", {});
 
   return response.data;
+};
+
+//Seats
+
+export const fetchSeats = async () => {
+  const response = await axiosInstance.get("/auth/getAll/seats");
+  return response.data.seats as SeatT[];
 };
