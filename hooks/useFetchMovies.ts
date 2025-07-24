@@ -14,7 +14,6 @@ export const useFetchMovies = () => {
       setLoading(true);
 
       const movies: MovieT[] = await fetchMovies();
-      console.log("movies aa", movies);
       dispatch(setMovies(movies));
     } catch (err) {
       console.error("err", err);

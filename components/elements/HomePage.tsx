@@ -21,20 +21,21 @@ const HomePage = () => {
     <div>
       <div>
         <h3>All Events</h3>
-        <div className="space-y-6 grid grid-cols-3">
+        <div className="space-y-6 grid grid-cols-4">
           {allMovies.map((movie: any, index: number) => (
             <div
               key={index}
               className="flex justify-start items-start bg-gray-50 shadow-md gap-4 w-[350px] cursor-pointer"
               onClick={() => handleMovieClick(movie)}
             >
-              <Image
-                src={`data:image/jpeg;base64,${movie.images}`}
-                alt={movie.title}
-                width={120}
-                height={120}
-                className="w-20 h-30 rounded cursor-pointer hover:opacity-80 transition"
-              />
+              <div className="relative w-20 h-28">
+                <Image
+                  src={`data:image/jpeg;base64,${movie.images}`}
+                  alt={movie.title}
+                  fill
+                  className="object-cover rounded cursor-pointer hover:opacity-80 transition"
+                />
+              </div>
               <div className="p-2">
                 <div>{movie.title}</div>
                 <div>{movie.genre}</div>

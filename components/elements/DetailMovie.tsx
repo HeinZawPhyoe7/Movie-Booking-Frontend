@@ -2,11 +2,13 @@
 
 import { selectedMovieDetail } from "@/features/movies/MoviesSlice";
 import { useFetchMovieDetails } from "@/hooks/useFetchMovieDetails";
+import { MovieDetailT } from "@/lib/types/movieDetails";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { Ticket } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 const DetailMovie = () => {
   const router = useRouter();
@@ -17,7 +19,15 @@ const DetailMovie = () => {
 
   const { movieDetails: allMovieDetails } = useFetchMovieDetails(movieId);
 
-  const handleChooseSeat = () => {};
+  const handleChooseSeat = (movie: MovieDetailT) => {
+    if (movie.ticket_status === "booking") {
+      router.push("/seat");
+    } else {
+      toast.error("This Movie is Sold Out!", {
+        position: "top-center",
+      });
+    }
+  };
 
   return (
     <div>
@@ -51,7 +61,7 @@ const DetailMovie = () => {
                 {movie.show_time}
               </div>
               <button
-                onClick={handleChooseSeat}
+                onClick={() => handleChooseSeat(movie)}
                 className="text-xl font-serif bg-sky-400 text-white p-1 w-[100px] rounded-2xl cursor-pointer"
               >
                 {movie.ticket_status}

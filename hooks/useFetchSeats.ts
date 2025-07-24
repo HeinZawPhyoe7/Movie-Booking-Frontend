@@ -14,7 +14,6 @@ export const useFetchSeats = () => {
       setLoading(true);
 
       const seats: SeatT[] = await fetchSeats();
-      console.log("seataa", seats);
       dispatch(setSeats(seats));
     } catch (err) {
       console.log("err", err);

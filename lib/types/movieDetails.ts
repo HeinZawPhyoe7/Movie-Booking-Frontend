@@ -4,6 +4,7 @@ export type MovieDetailT = {
   cinema_place: string;
   period_time: string;
   show_time: string;
+  ticket_status: string;
   movie_id: number;
 };
 
