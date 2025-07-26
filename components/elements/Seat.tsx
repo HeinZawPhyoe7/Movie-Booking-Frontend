@@ -2,7 +2,7 @@
 
 import { useFetchSeats } from "@/hooks/useFetchSeats";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -20,6 +20,8 @@ const Seat = () => {
   const { seats: allSeats } = useFetchSeats();
   const allSeatReduxState = useAppSelector(allSeatsFromRedux);
   const selectedSeatListStates = useAppSelector(selectedSeatListRedux);
+  const searchParams = useSearchParams();
+  const params = searchParams.get("status");
   const handleSelectSeat = (seat: SeatT) => {
     if (seat.status === "Available") {
       dispatch(setSelectedSeatNumber(seat));
@@ -63,18 +65,21 @@ const Seat = () => {
           );
 
           return (
-            <div
-              key={seat.id}
-              onClick={() => handleSelectSeat(seat)}
-              className={cn(
-                "border w-16 p-1 text-white text-xl rounded-md text-center cursor-pointer",
-                seat.status === "Available" && "bg-cyan-400 hover:bg-cyan-500",
-                seat.status === "Unavailable" && "bg-red-400",
-                isSelected && "bg-green-500 hover:bg-green-400"
-              )}
-            >
-              {seat.seat_number}
-            </div>
+            seat.seat_type === params && (
+              <div
+                key={seat.id}
+                onClick={() => handleSelectSeat(seat)}
+                className={cn(
+                  "border w-16 p-1 text-white text-xl rounded-md text-center cursor-pointer",
+                  seat.status === "Available" &&
+                    "bg-cyan-400 hover:bg-cyan-500",
+                  seat.status === "Unavailable" && "bg-red-400",
+                  isSelected && "bg-green-500 hover:bg-green-400"
+                )}
+              >
+                {seat.seat_number}
+              </div>
+            )
           );
         })}
       </div>

@@ -21,7 +21,7 @@ const DetailMovie = () => {
 
   const handleChooseSeat = (movie: MovieDetailT) => {
     if (movie.ticket_status === "booking") {
-      router.push("/seat");
+      router.push("/select-zone");
     } else {
       toast.error("This Movie is Sold Out!", {
         position: "top-center",
