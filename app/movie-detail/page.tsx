@@ -1,4 +1,4 @@
-import DetailMovie from "@/components/elements/DetailMovie";
+import MovieDetail from "@/components/elements/MovieDetail";
 import NavBar from "@/components/elements/NavBar";
 import React from "react";
 
@@ -7,7 +7,7 @@ const Page = () => {
     <div>
       <div>
         <NavBar />
-        <DetailMovie />
+        <MovieDetail />
       </div>
     </div>
   );

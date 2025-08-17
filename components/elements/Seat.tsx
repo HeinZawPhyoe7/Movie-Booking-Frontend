@@ -33,7 +33,7 @@ const Seat = () => {
   };
 
   const handleContinue = () => {
-    // router.push("/");
+    router.push("/payment");
   };
 
   return (

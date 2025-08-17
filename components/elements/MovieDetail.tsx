@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DetailMovie = () => {
+const MovieDetail = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const currentSelectedMovie = useAppSelector(selectedMovieDetail);
@@ -74,4 +74,4 @@ const DetailMovie = () => {
   );
 };
 
-export default DetailMovie;
+export default MovieDetail;
